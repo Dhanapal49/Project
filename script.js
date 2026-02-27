@@ -34,7 +34,6 @@ function renderProducts() {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-            <img src="${p.image}" alt="${p.name}">
             <h4>${p.name}</h4>
             <p>₹${p.price}</p>
             <button onclick="addToCart(${p.id})">Add to Cart</button>
