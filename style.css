@@ -30,7 +30,20 @@ header {
 
 nav {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+/* brand name/logo */
+.nav-brand {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
     gap: 1.5rem;
 }
 
@@ -38,6 +51,15 @@ nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+}
+
+#menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    color: white;
+    cursor: pointer;
 }
 
 .banner {
@@ -195,11 +217,28 @@ footer a {
 /* Responsive adjustments */
 @media (max-width: 600px) {
     nav {
+        flex-wrap: wrap;
+    }
+    #menu-toggle {
+        display: block;
+    }
+    .nav-links {
+        width: 100%;
         flex-direction: column;
-        align-items: center;
+        display: none;
+        text-align: center;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+    .nav-links.open {
+        display: flex;
     }
     .banner {
         height: 200px;
+    }
+    /* make cart full width on small screens */
+    #cart {
+        width: 80%;
     }
 }
 

@@ -17,6 +17,21 @@ function init() {
     const printBtn = document.getElementById('print-btn');
     if (printBtn) printBtn.addEventListener('click', () => window.print());
 
+    // mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+        // close menu when a link is clicked
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+
     // contact form stub
     const contactForm = document.querySelector('#contact form');
     if (contactForm) {
