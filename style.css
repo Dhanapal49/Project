@@ -253,9 +253,34 @@ footer a {
 
 #receipt {
     margin-top: 1rem;
-    white-space: pre-wrap;
+    /* not pre-wrap now because we use HTML formatting */
     background: #fff;
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+#checkout-items ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#checkout-items li {
+    margin-bottom: 0.5rem;
+}
+
+@media print {
+    /* hide everything except receipt for printing */
+    body * {
+        visibility: hidden;
+    }
+    #receipt, #receipt * {
+        visibility: visible;
+    }
+    #receipt {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
 }

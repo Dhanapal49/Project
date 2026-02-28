@@ -100,6 +100,31 @@ function showCheckout() {
     document.getElementById('checkout-page').classList.add('active');
     document.getElementById('main-content').style.display = 'none';
     toggleCart(false);
+    renderCheckoutItems();
+}
+
+/**
+ * Populate the checkout section with items currently in the cart.
+ */
+function renderCheckoutItems() {
+    const container = document.getElementById('checkout-items');
+    container.innerHTML = '';
+    if (cart.length === 0) {
+        container.textContent = 'Your cart is empty';
+        return;
+    }
+    const list = document.createElement('ul');
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+        const li = document.createElement('li');
+        li.textContent = `${item.name} x ${item.quantity} = ₹${item.price * item.quantity}`;
+        list.appendChild(li);
+    });
+    const totalDiv = document.createElement('div');
+    totalDiv.textContent = `Total: ₹${total}`;
+    container.appendChild(list);
+    container.appendChild(totalDiv);
 }
 
 function handlePurchase(e) {
@@ -109,24 +134,28 @@ function handlePurchase(e) {
     const message = document.getElementById('cust-message').value;
     const receipt = generateReceipt(name, phone, message);
     const receiptEl = document.getElementById('receipt');
-    receiptEl.textContent = receipt;
+    receiptEl.innerHTML = receipt; // HTML formatted receipt
     const printBtn = document.getElementById('print-btn');
     if (printBtn) printBtn.style.display = 'block';
 }
 
 function generateReceipt(name, phone, message) {
-    let text = '--- Purchase Receipt ---\n';
-    text += `Customer: ${name}\n`;
-    text += `Phone: ${phone}\n`;
-    text += `Message: ${message}\n\n`;
     let total = 0;
     cart.forEach(item => {
-        text += `${item.name} x ${item.quantity} = ₹${item.price * item.quantity}\n`;
         total += item.price * item.quantity;
     });
-    text += `\nTotal Amount: ₹${total}\n`;
-    text += '\nThank you for shopping local!';
-    return text;
+    let html = '<h3>Purchase Receipt</h3>';
+    html += `<p><strong>Customer:</strong> ${name}<br>`;
+    html += `<strong>Phone:</strong> ${phone}<br>`;
+    html += `<strong>Message:</strong> ${message}</p>`;
+    html += '<ul>';
+    cart.forEach(item => {
+        html += `<li>${item.name} x ${item.quantity} = ₹${item.price * item.quantity}</li>`;
+    });
+    html += '</ul>';
+    html += `<p><strong>Total Amount:</strong> ₹${total}</p>`;
+    html += '<p>Thank you for shopping local!</p>';
+    return html;
 }
 
 // initialize when DOM ready
